@@ -1,0 +1,19 @@
+version: '3'
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: quiverpay
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - '5432:5432'
+
+  app:
+    build: .
+    environment:
+      DATABASE_URL: postgres://postgres:password@db:5432/quiverpay
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
